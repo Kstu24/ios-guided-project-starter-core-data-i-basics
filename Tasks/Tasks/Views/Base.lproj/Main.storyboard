@@ -17,12 +17,48 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" id="cGY-yp-npj" customClass="TaskTableViewCell" customModule="Tasks" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cGY-yp-npj" id="DD5-yA-cuU">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liv-fX-DMn">
+                                            <rect key="frame" x="20" y="11" width="25" height="22.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="xGy-ei-Clk"/>
+                                            </constraints>
+                                            <state key="normal" title="Button" image="circle" catalog="system"/>
+                                            <connections>
+                                                <action selector="toggleComplete:" destination="cGY-yp-npj" eventType="touchUpInside" id="hrO-gQ-qvM"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUG-A0-ah1">
+                                            <rect key="frame" x="53" y="11" width="321" height="22.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="275" id="THh-hm-hik"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="liv-fX-DMn" firstAttribute="firstBaseline" secondItem="qUG-A0-ah1" secondAttribute="firstBaseline" id="4NY-B3-U0c"/>
+                                        <constraint firstItem="liv-fX-DMn" firstAttribute="centerY" secondItem="qUG-A0-ah1" secondAttribute="centerY" id="Ap5-UI-D2c"/>
+                                        <constraint firstItem="liv-fX-DMn" firstAttribute="leading" secondItem="DD5-yA-cuU" secondAttribute="leading" constant="20" id="Fba-VW-1C5"/>
+                                        <constraint firstItem="liv-fX-DMn" firstAttribute="bottom" secondItem="qUG-A0-ah1" secondAttribute="bottom" id="J9s-zK-daX"/>
+                                        <constraint firstItem="qUG-A0-ah1" firstAttribute="top" secondItem="DD5-yA-cuU" secondAttribute="topMargin" id="STU-nU-Qus"/>
+                                        <constraint firstItem="liv-fX-DMn" firstAttribute="baseline" secondItem="qUG-A0-ah1" secondAttribute="baseline" id="beW-dK-21X"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="qUG-A0-ah1" secondAttribute="trailing" constant="20" id="nht-Z0-UDK"/>
+                                        <constraint firstItem="qUG-A0-ah1" firstAttribute="leading" secondItem="liv-fX-DMn" secondAttribute="trailing" constant="8" id="qM3-cc-pc4"/>
+                                        <constraint firstItem="liv-fX-DMn" firstAttribute="centerY" secondItem="DD5-yA-cuU" secondAttribute="centerY" id="ykP-0Z-ju7"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="completedButton" destination="liv-fX-DMn" id="hIT-co-JiJ"/>
+                                    <outlet property="taskNameLabel" destination="qUG-A0-ah1" id="ubG-6s-Q6i"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -40,7 +76,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmJ-rz-z1k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-964" y="767"/>
+            <point key="canvasLocation" x="-965.21739130434787" y="766.74107142857144"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8tb-st-jzN">
@@ -90,6 +126,9 @@
                                                     <constraint firstAttribute="width" constant="30" id="wJg-ov-Msc"/>
                                                 </constraints>
                                                 <state key="normal" image="circle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="toggleComplete:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6xD-zD-534"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -131,9 +170,21 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create Task" id="qv1-Vy-Kdk">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="aUq-ju-lPp"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="G51-De-DQT"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="aUq-ju-lPp">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="1ba-US-RZK"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="G51-De-DQT">
+                            <connections>
+                                <action selector="save:" destination="BYZ-38-t0r" id="0of-UW-bYk"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="kNB-OM-6TW" id="VrF-5c-Tog"/>
+                        <outlet property="notesTextView" destination="R04-F0-saK" id="jPx-vd-cbS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

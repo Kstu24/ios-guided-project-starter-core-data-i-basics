@@ -7,10 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
 class TasksTableViewController: UITableViewController {
 
     // MARK: - Properties
+    
+    /* NOTE! This is not a good, efficient way to do this, as the fetch request
+    will be executed every time the tasks property is accessed. We will
+    learn a better way to do this later. */
+    
+    // Read part of CRUD
+    var tasks: [Task] {
+        
+        // Fetch Request to fetch Tasks specifically
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        
+        // Context you want to fetch the model objects into
+        let context = CoreDataStack.shared.mainContext
+        
+        do {
+            let fetchedTasks = try context.fetch(fetchRequest)
+            return fetchedTasks
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+            return []
+        }
+    }
     
     
     // MARK: - IBOutlets
@@ -33,17 +56,26 @@ class TasksTableViewController: UITableViewController {
         return cell
     }
 
-    /*
-    // Override to support editing the table view.
+    
+    // Allows user to delete from the MOC and persistent store
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
             // Delete the row from the data source
+            let task = tasks[indexPath.row]
+            let context = CoreDataStack.shared.mainContext
+            context.delete(task)
+            
+            do {
+                try context.save()
+            } catch {
+                NSLog("Error saving context after deleting Task: \(error)")
+                context.reset()
+            }
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
-    */
+}
 
     // MARK: - Navigation
 
