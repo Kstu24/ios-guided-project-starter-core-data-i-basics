@@ -9,6 +9,13 @@
 import Foundation
 import CoreData
 
+enum TaskPriority: String, CaseIterable {
+    case low
+    case normal
+    case high
+    case critical
+}
+
 // We need a way to initialize a Task object given its properties
 extension Task {
     
@@ -16,6 +23,7 @@ extension Task {
                      completed: Bool = false,
                      notes: String,
                      name: String,
+                     priority: TaskPriority,
                      context: NSManagedObjectContext) {
         
         // Set up the NSManagedObject portion of the Task Object
@@ -26,6 +34,7 @@ extension Task {
         self.completed = completed
         self.notes = notes
         self.name = name
+        self.priority = priority.rawValue
         
         
     }

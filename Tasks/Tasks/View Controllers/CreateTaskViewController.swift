@@ -16,6 +16,7 @@ class CreateTaskViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet var priorityControl: UISegmentedControl!
     
     // MARK: - View Lifecycle
     
@@ -32,9 +33,12 @@ class CreateTaskViewController: UIViewController {
         guard let name = nameTextField.text,
             !name.isEmpty,
         let notes = notesTextView.text else { return }
+        let selectedPriority = priorityControl.selectedSegmentIndex
+        let priority = TaskPriority.allCases[selectedPriority]
         Task(completed: complete,
                         notes: notes,
                         name: name,
+                        priority: priority,
                         context: CoreDataStack.shared.mainContext)
         
         do {
